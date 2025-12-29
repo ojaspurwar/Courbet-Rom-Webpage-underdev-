@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courbet ROM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .guide-body {
+            background-color: #030005;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(100, 0, 160, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(100, 0, 160, 0.1) 0%, transparent 20%);
+        }
+
+        .guide-hero {
+            text-align: center;
+            padding: 150px 20px 80px;
+        }
+
+        .guide-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto 100px;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Timeline vertical line */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary-color), transparent);
+        }
+
+        .timeline-step {
+            display: flex;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .step-icon {
+            width: 60px;
+            height: 60px;
+            background: #000;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            z-index: 2;
+            flex-shrink: 0;
+            margin-right: 30px;
+            margin-left: 20px;
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.3);
+        }
+
+        .step-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            flex-grow: 1;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .step-content:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(157, 0, 255, 0.3);
+        }
+
+        .step-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: var(--card-bg);
+            /* Match card bg */
+            transform: rotate(45deg);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            /* Match border */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-white);
+        }
+
+        .step-desc {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: rgba(157, 0, 255, 0.1);
+            color: var(--accent-glow);
+            border: 1px solid rgba(157, 0, 255, 0.2);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.4);
+        }
+
+        .command-box {
+            background: #000;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #00ff9d;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .alert-box {
+            border-left: 4px solid #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            color: #ffaaaa;
+        }
+
+        .info-box {
+            border-left: 4px solid var(--primary-color);
+            background: rgba(157, 0, 255, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            color: var(--text-white);
+        }
+
+        ul.detail-list,
+        ol.detail-list {
+            padding-left: 20px;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        ul.detail-list li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                left: 29px;
+            }
+
+            .step-icon {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+
+            .step-content::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="guide-body">
+    <nav class="navbar">
+        <div class="logo">Courbet ROM</div>
+        <div class="nav-links">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#roms">Custom ROMs</a>
+            <a href="#" class="active">Guide</a>
+            <a href="index.html#more">More</a>
+        </div>
+        <a href="index.html#roms" class="nav-cta">Get Started</a>
+    </nav>
+
+    <div class="guide-hero">
+        <h1>Master the <span class="gradient-text">Flash</span></h1>
+        <p style="color: var(--text-gray); font-size: 1.2rem;">Step-by-step installation guide for Mi 11 Lite 4G</p>
+    </div>
+
+    <div class="timeline-container">
+
+        <!-- Step 1 -->
+        <div class="timeline-step fade-in">
+            <div class="step-icon">1</div>
+            <div class="step-content">
+                <h3 class="step-title">Unlock Bootloader</h3>
+                <div class="alert-box">
+                    <strong>Warning:</strong> This will void your warranty and wipe all data!
+                </div>
+                <p class="step-desc">Before anything else, your device needs to be unlocked.</p>
+                <a href="https://www.youtube.com/watch?v=oOXQ7XhqeWk" target="_blank" class="action-btn">📺 Watch
+                    Tutorial</a>
+            </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="timeline-step fade-in">
+            <div class="step-icon">2</div>
+            <div class="step-content">
+                <h3 class="step-title">Recovery Environment</h3>
+                <p class="step-desc">We use OrangeFox Recovery. First time? Flash TWRP then OrangeFox.</p>
+
+                <div style="display: flex; flex-wrap: wrap;">
+                    <a href="https://sourceforge.net/projects/courbet-roms/files/OrangeFox_R12.1_A14_courbet.zip/download"
+                        target="_blank" class="action-btn">⬇ OrangeFox R12.1</a>
+                    <a href="https://sourceforge.net/projects/twrp-youngherna/files/TWRP-3.7.0-courbet-ygherna.img/download"
+                        target="_blank" class="action-btn">⬇ TWRP 3.7.0</a>
+                </div>
+
+                <div class="command-box">
+                    fastboot flash recovery twrp.img<br>
+                    fastboot reboot recovery
+                </div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-gray);">
+                    Once in TWRP -> Flash OrangeFox Zip -> Reboot to Recovery.
+                </p>
+            </div>
+        </div>
+
+        <!-- Step 3: Required Files & Prep -->
+        <div class="timeline-step fade-in">
+            <div class="step-icon">3</div>
+            <div class="step-content">
+                <h3 class="step-title">Preparation</h3>
+                <h4 style="color: var(--accent-glow); margin-bottom: 10px;">Required Files</h4>
+                <ul class="detail-list">
+                    <li>Your chosen Custom ROM ZIP from the <a href="index.html#roms"
+                            style="color: var(--primary-color);">ROMs section</a>.</li>
+                    <li>GApps package (if needed). We recommend <strong style="color: white;">NikGapps Core</strong>.
+                    </li>
+                    <li>A complete backup of your important data on an external device.</li>
+                </ul>
+                <h4 style="color: var(--accent-glow); margin-top: 20px; margin-bottom: 10px;">Device Ready?</h4>
+                <ul class="detail-list">
+                    <li>🔋 Battery: Minimum 60% charge.</li>
+                    <li>💾 Backup: Full system and data backup.</li>
+                    <li>🔌 Cable: Reliable USB cable usage.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Step 4: Clean Flash -->
+        <div class="timeline-step fade-in">
+            <div class="step-icon">4</div>
+            <div class="step-content">
+                <h3 class="step-title">Clean Flash</h3>
+                <div class="info-box">
+                    <strong>REQUIRED WHEN:</strong> Coming from a different ROM (e.g., EvolutionX to LineageOS),
+                    updating Android versions (A15 → A16), or major updates. Erases user data.
+                </div>
+                <ol class="detail-list">
+                    <li>Boot into <strong>OrangeFox Recovery</strong>.</li>
+                    <li>Tap the <strong>Trash Icon</strong> -> Format Data -> Type <code>yes</code> to confirm.</li>
+                    <li>Go to <strong>Menu -> Install</strong> -> Select ROM Zip -> Swipe to Flash.</li>
+                    <li>(Optional) Flash GApps package without rebooting if required.</li>
+                    <li>Return to main menu -> <strong>Reboot</strong> -> <strong>System</strong>.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Step 5: Dirty Flash -->
+        <div class="timeline-step fade-in">
+            <div class="step-icon">5</div>
+            <div class="step-content">
+                <h3 class="step-title">Dirty Flash (Update)</h3>
+                <div class="info-box" style="border-left-color: #00ff9d; background: rgba(0, 255, 157, 0.1);">
+                    <strong>ONLY FOR:</strong> Updating the SAME ROM to a newer version on the SAME Android version.
+                    Keeps your data safe.
+                </div>
+                <ol class="detail-list">
+                    <li>Boot into <strong>OrangeFox Recovery</strong>.</li>
+                    <li>Select <strong>Install</strong> and flash the updated ROM ZIP file.</li>
+                    <li>(Optional) Re-flash GApps/Magisk if not automatically restored.</li>
+                    <li>Wipe the <strong>Dalvik/ART Cache</strong>.</li>
+                    <li>Reboot to System.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Step 6: Troubleshooting -->
+        <div class="timeline-step fade-in">
+            <div class="step-icon">6</div>
+            <div class="step-content">
+                <h3 class="step-title">Troubleshooting & Notes</h3>
+
+                <h4 style="color: var(--accent-glow); margin-bottom: 10px;">🕒 First Boot</h4>
+                <p class="step-desc">Can take up to <strong>5 minutes</strong>. If longer, boot likely failed.</p>
+
+                <h4 style="color: var(--accent-glow); margin-bottom: 10px;">⚠️ Common Issues</h4>
+                <ul class="detail-list">
+                    <li><strong>Boot Loop:</strong> If it loops, try formatting data again (Clean Flash).</li>
+                    <li><strong>Recovery Issues:</strong> Use only the recommended OrangeFox version.</li>
+                </ul>
+                <p style="margin-top: 15px; font-size: 0.85rem; color: var(--text-gray); font-style: italic;">
+                    We do not provide support for recoveries other than OrangeFox. Always read specific ROM release
+                    notes.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Courbet Custom ROM Project. Made with &hearts; by the Community.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
