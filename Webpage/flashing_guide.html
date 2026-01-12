@@ -4,198 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detailed flashing guide for Courbet ROM (Mi 11 Lite 4G) — unlock, recovery, and install steps.">
+    <meta property="og:title" content="Courbet ROM — Flashing Guide">
+    <meta property="og:description" content="Step-by-step instructions for safely flashing Courbet custom ROM on supported devices.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="">
+    <meta name="theme-color" content="#030005">
     <title>Courbet ROM</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="preload" href="favicon.ico" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.css" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        .guide-body {
-            background-color: #030005;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(100, 0, 160, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(100, 0, 160, 0.1) 0%, transparent 20%);
-        }
-
-        .guide-hero {
-            text-align: center;
-            padding: 150px 20px 80px;
-        }
-
-        .guide-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-
-        .timeline-container {
-            max-width: 800px;
-            margin: 0 auto 100px;
-            position: relative;
-            padding: 20px;
-        }
-
-        /* Timeline vertical line */
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            left: 50px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary-color), transparent);
-        }
-
-        .timeline-step {
-            display: flex;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .step-icon {
-            width: 60px;
-            height: 60px;
-            background: #000;
-            border: 2px solid var(--primary-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            z-index: 2;
-            flex-shrink: 0;
-            margin-right: 30px;
-            margin-left: 20px;
-            box-shadow: 0 0 15px rgba(157, 0, 255, 0.3);
-        }
-
-        .step-content {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 20px;
-            flex-grow: 1;
-            position: relative;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease;
-        }
-
-        .step-content:hover {
-            transform: translateX(5px);
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(157, 0, 255, 0.3);
-        }
-
-        .step-content::before {
-            content: '';
-            position: absolute;
-            left: -10px;
-            top: 25px;
-            width: 20px;
-            height: 20px;
-            background: var(--card-bg);
-            /* Match card bg */
-            transform: rotate(45deg);
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
-            /* Match border */
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .step-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-white);
-        }
-
-        .step-desc {
-            color: var(--text-gray);
-            margin-bottom: 20px;
-        }
-
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 10px 20px;
-            background: rgba(157, 0, 255, 0.1);
-            color: var(--accent-glow);
-            border: 1px solid rgba(157, 0, 255, 0.2);
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .action-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            box-shadow: 0 0 15px rgba(157, 0, 255, 0.4);
-        }
-
-        .command-box {
-            background: #000;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            color: #00ff9d;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 15px;
-            position: relative;
-        }
-
-        .alert-box {
-            border-left: 4px solid #ff4444;
-            background: rgba(255, 68, 68, 0.1);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            color: #ffaaaa;
-        }
-
-        .info-box {
-            border-left: 4px solid var(--primary-color);
-            background: rgba(157, 0, 255, 0.1);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            color: var(--text-white);
-        }
-
-        ul.detail-list,
-        ol.detail-list {
-            padding-left: 20px;
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-
-        ul.detail-list li {
-            margin-bottom: 10px;
-        }
-
-        @media (max-width: 768px) {
-            .timeline-container::before {
-                left: 29px;
-            }
-
-            .step-icon {
-                margin-left: 0;
-                margin-right: 20px;
-            }
-
-            .step-content::before {
-                display: none;
-            }
-        }
-    </style>
 </head>
 
 <body class="guide-body">
-    <nav class="navbar">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="logo">Courbet ROM</div>
-        <div class="nav-links">
+        <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Open menu">
+            <span class="hamburger" aria-hidden="true"></span>
+        </button>
+        <div id="primary-navigation" class="nav-links">
             <a href="index.html#home">Home</a>
             <a href="index.html#roms">Custom ROMs</a>
             <a href="#" class="active">Guide</a>
@@ -209,7 +41,7 @@
         <p style="color: var(--text-gray); font-size: 1.2rem;">Step-by-step installation guide for Mi 11 Lite 4G</p>
     </div>
 
-    <div class="timeline-container">
+    <div id="main-content" class="timeline-container">
 
         <!-- Step 1 -->
         <div class="timeline-step fade-in">
